@@ -26,6 +26,7 @@ describe User do
   it {should respond_to(:password_confirmation)}
   it {should respond_to(:authenticate)}
   it {should respond_to(:admin)}
+  it {should respond_to(:microposts)}
   it {should_not have_accessible(:admin)}
 
   it {should be_valid}
@@ -122,5 +123,24 @@ describe User do
     it {should_not be_valid}
   end
 
+
+  describe "microposts associations" do
+    before {@user.save}
+    let!(:older_micropost){FactoryGirl.create(:micropost, user: @user, created_at:1.day.ago)}
+    let!(:newer_micropost){FactoryGirl.create(:micropost, user: @user, created_at:1.hour.ago )}
+  
+    it "should have the correct order" do
+      @user.microposts.should == [newer_micropost, older_micropost]
+    end
+
+    it "should destroy associated microposts when user destroyed" do
+      microposts=@user.microposts.dup
+      @user.destroy
+      microposts.should_not be_empty
+      microposts.each do |micropost|
+        Micropost.find_by_id(micropost.id).should be_nil
+      end
+    end
+  end
 
 end

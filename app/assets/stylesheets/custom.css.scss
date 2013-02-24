@@ -1,5 +1,5 @@
 @import "bootstrap";
-
+@import "bootstrap-responsive";
 /* universal */
 
 html {
@@ -59,7 +59,7 @@ p {
 	float: left;
 	margin-right: 10px;
 	font-size: 1.7em;
-	color: #fff;
+	color: $gray;
 	text-transform: uppercase;
 	letter-spacing: -1px;
 	padding-top: 9px;
@@ -120,6 +120,10 @@ aside{
 			margin-top: 0px;
 
 		}
+	}
+	textarea {
+		height: 100px;
+		margin-bottom: 5px;
 	}
 }
 
@@ -186,4 +190,23 @@ input {
 .field_with_errors {
 	@extend .error;
 	@extend .control-group;
+}
+
+/* Microposts */
+
+.microposts {
+	list-style: none;
+	margin: 10px 0 0 0;
+
+	li {
+		padding: 10px 0;
+		border-top: 1px solid #e8e8e8;
+	}
+}
+
+.content {
+	display: block;
+}
+.timestamp {
+	color: $grayLight;
 }
